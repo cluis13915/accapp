@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 import './App.css';
 
 const Login = props => {
   return (
-    <div>
-      <h1>Login please</h1>
-      <div>
-        <label>Username:</label>
-        <input type="email"></input>
-      </div>
-      <div>
-        <label>Password:</label>
-        <input type="password"></input>
-      </div>
-
-      <button><Link to={'/'}>Back</Link></button>
-      <button type="submit">Log In</button>
-    </div>
+    <Form>
+      <FormGroup>
+        <Label for="exampleEmail">Email</Label>
+        <Input type="email" name="email" placeholder="email" />
+      </FormGroup>
+      <FormGroup>
+        <Label for="examplePassword">Password</Label>
+        <Input type="password" name="password" placeholder="password" />
+      </FormGroup>
+      <Link to={'/'}>
+        <Button>Back</Button>
+      </Link>
+      <Button color="success">Log In</Button>
+    </Form>
   )
 };
 
@@ -27,7 +28,9 @@ const Home = props => {
     <div>
       <h1>This is the home page!</h1>
       <p>Edit <code>src/App.js</code> and save to reload.</p>
-      <Link to={'/login'}>Log In</Link>
+      <Link to={'/login'}>
+        <Button color="info">Log In</Button>
+      </Link>
     </div>
   );
 };
