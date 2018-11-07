@@ -1,3 +1,7 @@
-export default (state = {}, action) => {
-  return state;
-};
+import { combineReducers } from 'redux';
+
+import common from './reducers/common';
+
+export default combineReducers({
+  common
+});

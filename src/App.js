@@ -1,46 +1,32 @@
 import React, { Component } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Route, Switch } from 'react-router-dom';
 
+import Login from './components/Login';
 import Header from './components/Header';
+import Home from './components/Home';
+import Expense from './components/Expense';
+import Income from './components/Income';
+import AccountStatus from './components/AccountStatus';
 
 import './App.css';
 
-const Login = props => {
-  return (
-    <Form>
-      <FormGroup>
-        <Label for="exampleEmail">Email</Label>
-        <Input type="email" name="email" placeholder="email" />
-      </FormGroup>
-      <FormGroup>
-        <Label for="examplePassword">Password</Label>
-        <Input type="password" name="password" placeholder="password" />
-      </FormGroup>
-      <Link to={'/'}>
-        <Button>Back</Button>
-      </Link>
-      <Button color="success">Log In</Button>
-    </Form>
-  )
-};
-
-const Home = props => {
-  return (
-    <div>
-      <h1>This is the home page!</h1>
-    </div>
-  );
+const mapStateToProps = state => {
+  return {
+    appName: state.common.appName
+  }
 };
 
 class App extends Component {
   render() {
     return (
       <div className="app">
-        <Header appName="Accapp"></Header>
+        <Header appName={this.props.appName}></Header>
         <Switch>
           <Route exact path="/" component={Home}></Route>
           <Route path="/login" component={Login}></Route>
+          <Route exact path="/expense" component={Expense}></Route>
+          <Route exact path="/income" component={Income}></Route>
+          <Route exact path="/account-status" component={AccountStatus}></Route>
         </Switch>
       </div>
     );
