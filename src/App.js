@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Login from './components/Login';
 import Header from './components/Header';
@@ -33,4 +35,8 @@ class App extends Component {
   }
 }
 
-export default App;
+App.propTypes = {
+  appName: PropTypes.string
+};
+
+export default connect(mapStateToProps, () => ({}))(App);
