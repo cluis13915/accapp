@@ -18,19 +18,19 @@ class Header extends React.Component {
             <NavItem>
               <Link className="nav-link" to={'/expense'}>
                 <i className="fas fa-cart-plus"></i>
-                Gasto
+                Expense
               </Link>
             </NavItem>
             <NavItem>
               <Link className="nav-link" to={'/income'}>
                 <i className="fas fa-dollar-sign"></i>
-                Ingreso
+                Income
               </Link>
             </NavItem>
             <NavItem>
               <Link className="nav-link" to={'/account-status'}>
                 <i className="far fa-money-bill-alt"></i>
-                Estado de cuenta
+                Account status
               </Link>
             </NavItem>
           </Nav>
