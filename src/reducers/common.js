@@ -1,5 +1,5 @@
 const defaultState = {
-  appName: 'AccApp',
+  currentUser: null,
   token: null
 };
 
