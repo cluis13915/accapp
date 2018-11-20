@@ -1,16 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { SubmissionError } from 'redux-form';
+
 import {
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
   Carousel,
   CarouselItem,
   CarouselIndicators,
   CarouselCaption
 } from 'reactstrap';
+
+import LoginForm from './../forms/LoginForm';
 
 import './styles/Login.css';
 
@@ -25,12 +23,8 @@ const carouselItems = [
     altText: 'Slide 2',
     caption: 'Slide 2'
   },
-  {
-    src: 'https://images.pexels.com/photos/872957/pexels-photo-872957.jpeg',
-    altText: 'Slide 3',
-    caption: 'Slide 3'
-  }
 ];
+
 
 class Login extends React.Component {
   constructor(props) {
@@ -43,6 +37,7 @@ class Login extends React.Component {
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
+    this.doLogin = this.doLogin.bind(this);
   }
 
   onExiting() {
@@ -82,6 +77,27 @@ class Login extends React.Component {
     this.setState({ activeIndex: newIndex });
   }
 
+  doLogin(values) {
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+    return sleep(1000).then(() => {
+      // simulate server latency
+      if (!['john', 'paul', 'george', 'ringo'].includes(values.username)) {
+        throw new SubmissionError({
+          username: 'User does not exist',
+          _error: 'Login failed!'
+        })
+      } else if (values.password !== 'redux-form') {
+        throw new SubmissionError({
+          password: 'Wrong password',
+          _error: 'Login failed!'
+        })
+      } else {
+        window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
+      }
+    });
+  }
+
   render() {
     const { activeIndex } = this.state;
 
@@ -101,19 +117,9 @@ class Login extends React.Component {
       <div className="login-box container">
         <div className="row">
           <div className="col-md-4 login-sec">
-            <h2 className="text-center">AccApp</h2>
-            <Form>
-              <FormGroup>
-                <Label for="exampleEmail">Email</Label>
-                <Input type="email" name="email" placeholder="email" />
-              </FormGroup>
-              <FormGroup>
-                <Label for="examplePassword">Password</Label>
-                <Input type="password" name="password" placeholder="password" />
-              </FormGroup>
+            <h2 className="text-center">AppName</h2>
 
-              <Button color="success" className="btn-login float-right">Log In</Button>
-            </Form>
+            <LoginForm onSubmit={this.doLogin}></LoginForm>
           </div>
           <div className="col-md-8 banner-sec">
             <Carousel
