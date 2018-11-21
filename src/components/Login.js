@@ -121,7 +121,7 @@ class Login extends React.Component {
 
             <LoginForm onSubmit={this.doLogin}></LoginForm>
           </div>
-          <div className="col-md-8 banner-sec">
+          <div className="col-md-8 banner-sec d-none d-md-block">
             <Carousel
               activeIndex={activeIndex}
               next={this.next}
