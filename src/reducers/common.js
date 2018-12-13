@@ -3,6 +3,6 @@ const defaultState = {
   token: null
 };
 
-export default (state = defaultState, action) => {
+export default (state = defaultState) => {
   return state;
 };

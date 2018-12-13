@@ -1,6 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Button, Form, FormGroup, Label } from 'reactstrap';
+import agent from '../agent';
+
+import { LOGIN } from '../constants/actionTypes';
+
+const mapStateToProps = state => ({ ...state.auth });
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: (email, password) =>
+    dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) })
+});
 
 const validate = (values) => {
   const errors = {};
@@ -53,4 +64,4 @@ LoginForm = reduxForm({
   validate
 })(LoginForm);
 
-export default LoginForm;
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
