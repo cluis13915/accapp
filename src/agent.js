@@ -25,8 +25,6 @@ const requests = {
 
 const Auth = {
   login: (email, password) => {
-    console.log('email:', email);
-    console.log('password:', password);
     return requests.post('/auth/login', { email, password })
   }
 };

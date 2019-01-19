@@ -1,5 +1,7 @@
 import React from 'react';
-import { SubmissionError } from 'redux-form';
+import { connect } from 'react-redux';
+import agent from '../agent';
+import { LOGIN } from '../constants/actionTypes';
 
 import {
   Carousel,
@@ -26,6 +28,14 @@ const carouselItems = [
 ];
 
 
+const mapStateToProps = state => ({ ...state.auth });
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: (email, password) =>
+    dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) })
+});
+
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -37,7 +47,6 @@ class Login extends React.Component {
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
     this.goToIndex = this.goToIndex.bind(this);
-    this.doLogin = this.doLogin.bind(this);
   }
 
   onExiting() {
@@ -77,27 +86,6 @@ class Login extends React.Component {
     this.setState({ activeIndex: newIndex });
   }
 
-  doLogin(values) {
-    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-    return sleep(1000).then(() => {
-      // simulate server latency
-      if (!['john', 'paul', 'george', 'ringo'].includes(values.username)) {
-        throw new SubmissionError({
-          username: 'User does not exist',
-          _error: 'Login failed!'
-        })
-      } else if (values.password !== 'redux-form') {
-        throw new SubmissionError({
-          password: 'Wrong password',
-          _error: 'Login failed!'
-        })
-      } else {
-        window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
-      }
-    });
-  }
-
   render() {
     const { activeIndex } = this.state;
 
@@ -119,7 +107,9 @@ class Login extends React.Component {
           <div className="col-md-4 login-sec">
             <h2 className="text-center">AppName</h2>
 
-            <LoginForm onSubmit={this.doLogin}></LoginForm>
+            <LoginForm
+              onSubmit={values => this.props.onSubmit(values.username, values.password)}>
+            </LoginForm>
           </div>
           <div className="col-md-8 banner-sec d-none d-md-block">
             <Carousel
@@ -141,4 +131,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

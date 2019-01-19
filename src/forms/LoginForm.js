@@ -1,17 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { Button, Form, FormGroup, Label } from 'reactstrap';
-import agent from '../agent';
+import { Button, FormGroup, Label } from 'reactstrap';
 
-import { LOGIN } from '../constants/actionTypes';
-
-const mapStateToProps = state => ({ ...state.auth });
-
-const mapDispatchToProps = dispatch => ({
-  onSubmit: (email, password) =>
-    dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) })
-});
 
 const validate = (values) => {
   const errors = {};
@@ -41,7 +31,7 @@ const renderField = ({
 );
 
 let LoginForm = ({ handleSubmit }) => (
-  <Form onSubmit={handleSubmit}>
+  <form onSubmit={handleSubmit}>
     <Field
       name="username"
       type="email"
@@ -55,13 +45,12 @@ let LoginForm = ({ handleSubmit }) => (
       label="Password" />
 
     <Button type="submit" className="btn-login float-right">Log In</Button>
-  </Form>
+  </form>
 );
-
 
 LoginForm = reduxForm({
   form: 'login',
   validate
 })(LoginForm);
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default LoginForm;

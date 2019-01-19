@@ -19,7 +19,6 @@ const promiseMiddleware = store => next => action => {
       store.dispatch(action);
     },
     error => {
-      console.log('Error:', error);
       action.error = true;
       action.payload = error.response.body;
 
