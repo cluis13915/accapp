@@ -5,7 +5,6 @@ export default (state = {}, action) => {
     case LOGIN:
       return {
         ...state,
-        inProgress: false,
         errors: action.error ? action.payload.errors : null
       };
     case ASYNC_START:
